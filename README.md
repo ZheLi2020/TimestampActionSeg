@@ -15,7 +15,10 @@ Tested with:
 
 ### Prediction and Evaluation:
 
-Run `python main.py --action=predict --dataset=DS --split=SP`. 
+Normally we get the prediction and evaluation after training and do not have to run this independently.
+In case you want to test the saved model again by prediction and evaluation.
+
+Please change the `time_data` in `main.py` and run `python main.py --action=predict --dataset=DS --split=SP`. 
 
 ### Model
 
