@@ -30,6 +30,3 @@ If you use the code, please cite
     Temporal Action Segmentation from Timestamp Supervision.
     In IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2021
     
-    Y. Abu Farha and J. Gall.
-    MS-TCN: Multi-Stage Temporal Convolutional Network for Action Segmentation.
-    In IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2019
