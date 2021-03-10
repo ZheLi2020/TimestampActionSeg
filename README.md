@@ -18,7 +18,7 @@ Run `python main.py --action=predict --dataset=DS --split=SP`.
 
 ### Model
 
-The model used in paper is based on MS-TCN model. Please refer to the paper [MS-TCN: Multi-Stage Temporal Convolutional Network for Action Segmentation](https://arxiv.org/pdf/1903.01945.pdf).
+The model used in this paper is a refined MS-TCN model. Please refer to the paper [MS-TCN: Multi-Stage Temporal Convolutional Network for Action Segmentation](https://arxiv.org/pdf/1903.01945.pdf).
 
 
 ### Citation:
