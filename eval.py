@@ -90,32 +90,6 @@ def f_score(recognized, ground_truth, overlap, bg_class=["background"]):
     return float(tp), float(fp), float(fn)
 
 
-def iou_iod(recognized, ground_truth, bg_class=["background"]):
-    p_label, p_start, p_end = get_labels_start_end_time(recognized, bg_class)
-    y_label, y_start, y_end = get_labels_start_end_time(ground_truth, bg_class)
-
-    n_true_segs = len(y_label)
-    n_pred_segs = len(p_label)
-    iou_scores = np.zeros(n_true_segs, np.float)
-    iod_scores = np.zeros(n_true_segs, np.float)
-
-    for i in range(n_true_segs):
-        for j in range(n_pred_segs):
-            if y_label[i] == p_label[j]:
-                intersection = min(p_end[j], y_end[i]) - max(p_start[j], y_start[i])
-                union_iou = max(p_end[j], y_end[i]) - min(p_start[j], y_start[i])
-                union_iod = p_end[j] - p_start[j]
-
-                if union_iou > 0:
-                    score_iou = float(intersection) / union_iou
-                    iou_scores[i] = max(iou_scores[i], score_iou)
-                if union_iod > 0:
-                    score_iod = float(intersection) / union_iod
-                    iod_scores[i] = max(iod_scores[i], score_iod)
-
-    return iou_scores.mean() * 100, iod_scores.mean() * 100
-
-
 def evaluate(dataset, split, time_data):
     print("Evaluate dataset {} in split {} for single stamp supervision".format(dataset, split))
 
@@ -132,7 +106,7 @@ def evaluate(dataset, split, time_data):
     file_name = './result/' + time_data + '.xlsx'
     workbook = xlsxwriter.Workbook(file_name)
     worksheet = workbook.add_worksheet()
-    metrics = ['F1@10', 'F1@25', 'F1@50', 'Edit', 'Acc', 'IOU', 'IOD']
+    metrics = ['F1@10', 'F1@25', 'F1@50', 'Edit', 'Acc']
     row = 0
     col = 0
     for m in range(len(metrics)):
@@ -145,8 +119,6 @@ def evaluate(dataset, split, time_data):
     correct = 0
     total = 0
     edit = 0
-    total_iou = 0
-    total_iod = 0
 
     for vid in list_of_videos:
         gt_file = ground_truth_path + vid
@@ -168,10 +140,6 @@ def evaluate(dataset, split, time_data):
             fp[s] += fp1
             fn[s] += fn1
 
-        iou, iod = iou_iod(recog_content, gt_content)
-        total_iou += iou
-        total_iod += iod
-
     for s in range(len(overlap)):
         precision = tp[s] / float(tp[s]+fp[s])
         recall = tp[s] / float(tp[s]+fn[s])
@@ -185,18 +153,12 @@ def evaluate(dataset, split, time_data):
 
     edit = (1.0 * edit) / len(list_of_videos)
     acc = 100 * float(correct) / total
-    final_iou = total_iou / len(list_of_videos)
-    final_iod = total_iod / len(list_of_videos)
 
     worksheet.write(row, col, round(edit, 4))
     worksheet.write(row, col + 1, round(acc, 4))
-    worksheet.write(row, col + 2, round(final_iou, 4))
-    worksheet.write(row, col + 3, round(final_iod, 4))
 
     print('Edit: %.4f' % edit)
     print("Acc: %.4f" % acc)
-    print("iou: %.4f" % final_iou)
-    print("iod: %.4f" % final_iod)
 
     workbook.close()
 
