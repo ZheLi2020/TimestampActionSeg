@@ -4,7 +4,7 @@ This repository provides a PyTorch implementation of the paper Temporal Action S
 
 Tested with:
 
-- PyTorch 1.1.1
+- PyTorch 1.1.0
 - Python 3.6.10
   
 ### Training:
