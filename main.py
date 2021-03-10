@@ -22,7 +22,7 @@ torch.cuda.manual_seed_all(seed)
 torch.backends.cudnn.deterministic = True
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--action', default='train', help='two options: train or predict')
+parser.add_argument('--action', default=True, help='True is to train')
 parser.add_argument('--dataset', default="breakfast", help='three dataset: breakfast, 50salads, gtea')
 parser.add_argument('--split', default='1')
 
@@ -76,7 +76,7 @@ num_classes = len(actions_dict)
 writer = SummaryWriter()
 trainer = Trainer(num_stages, num_layers, num_f_maps, features_dim, num_classes)
 
-if args.action == "train":
+if args.action:
     batch_gen = BatchGenerator(num_classes, actions_dict, gt_path, features_path, sample_rate)
     batch_gen.read_data(vid_list_file)
 

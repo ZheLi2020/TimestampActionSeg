@@ -17,7 +17,8 @@ class BatchGenerator(object):
         self.gt = {}
         self.confidence_mask = {}
 
-        self.random_index = np.load(gt_path + "single_annotation_all.npy", allow_pickle=True).item()
+        dataset_name = gt_path.split('/')[2]
+        self.random_index = np.load(gt_path + dataset_name + "_annotation_all.npy", allow_pickle=True).item()
 
     def reset(self):
         self.index = 0
@@ -96,7 +97,7 @@ class BatchGenerator(object):
 
     def get_boundary(self, batch_size, pred):
         # This function is to generate pseudo labels
-        
+
         batch = self.list_of_examples[self.index - batch_size:self.index]
         num_video, _, max_frames = pred.size()
         boundary_target_tensor = torch.ones(num_video, max_frames, dtype=torch.long) * (-100)
