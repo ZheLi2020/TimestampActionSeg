@@ -12,6 +12,8 @@ Tested with:
 * Extract it so that you have the `data` folder in the same directory as `main.py`.
 * The three `.npy` files in 'data/' in this repository are the timestamp annotations. Put each one in corresponding ground truth folder. For example, `./data/breakfast/groundTruth/` for Breakfast dataset.
 * To train the model run `python main.py --action=train --dataset=DS --split=SP` where `DS` is `breakfast`, `50salads` or `gtea`, and `SP` is the split number (1-5) for 50salads and (1-4) for the other datasets.
+* The output of evaluation is saved in `result/` folder as a excel.
+* The `models/` folder will save the trained model and the `results/` folder save the predicted action labels of each video in test dataset.
 
 ### Prediction and Evaluation:
 
