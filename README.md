@@ -1,6 +1,6 @@
 # Temporal Action Segmentation from Timestamp Supervision
 
-This repository provides a PyTorch implementation of the paper Temporal Action Segmentation from Timestamp Supervision.
+This repository provides a PyTorch implementation of the paper [Temporal Action Segmentation from Timestamp Supervision.](https://arxiv.org/abs/2103.06669)
 
 Tested with:
 
